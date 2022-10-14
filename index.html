@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Open Layers Test</title>
+
+    <link rel="stylesheet" href="libs/OpenLayers/ol.css">
+    <link rel="stylesheet" href="/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-1">
+            <div class="sidebar">
+                <form class="sidebar-form">
+                    <h2>Выбор слоя  </h2>
+                    <label>
+                        <input type="radio" name="BaseLayerMap" value="OSMStandart">Open Steet Map
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="BaseLayerMap" value="GoogleTerrainRoads" checked>Google Map
+                    </label>
+                </form>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div id="map"></div>
+        </div>
+    </div>
+    <script src="libs/OpenLayers/ol.js"></script>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
