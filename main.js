@@ -72,9 +72,9 @@ function init() {
         })
     }
 
-    // SKFO Layer - Северо-Кавказский федеральный округ
+    // SKFO Data - Северо-Кавказский федеральный округ
 
-    // North Osetia Geo Data
+    // North Osetia Layer
     const NorthOsetiaGeoJSON = new ol.layer.VectorImage({
         source: new ol.source.Vector({
             url: './data/SKFO/North_Osetia_Republic.geojson',
