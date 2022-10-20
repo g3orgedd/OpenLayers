@@ -71,4 +71,16 @@ function init() {
             })
         })
     }
+
+    // SKFO Layer - Северо-Кавказский федеральный округ
+    const SKFOGeoJSON = new ol.layer.VectorImage({
+        source: new ol.source.Vector({
+            url: './data/NorthOsetiaRepublic.geojson',
+            format: new ol.format.GeoJSON()
+        }),
+        visible: true,
+        title: 'SKFO'
+    })
+
+    map.addLayer(SKFOGeoJSON);
 }

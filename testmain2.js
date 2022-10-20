@@ -1,5 +1,5 @@
 // не работает 
-window.onload = init;
+window.onload = initMap;
 
 function init() {
   const map = new ol.Map({
@@ -22,3 +22,16 @@ function init() {
     ]
   });
 }
+
+function initMap() {
+  let map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: { lat: -28, lng: 137 },
+  });
+  // NOTE: This uses cross-domain XHR, and may not work on older browsers.
+  map.data.loadGeoJson(
+    "https://storage.googleapis.com/mapsdevsite/json/google.json"
+  );
+}
+
+// window.initMap = initMap;
