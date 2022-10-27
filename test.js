@@ -86,9 +86,9 @@ function init() {
         source: new ol.source.Vector(),
         style: new ol.style.Style({
             image: new ol.style.Icon({
-                // anchor: [1, 1],
+                anchor: [0.5, 1],
                 src: './data/MapMarker.png',
-                scale: 0.05
+                scale: 0.07
             })
         })
     });
@@ -107,5 +107,8 @@ function init() {
 
         var marker = new ol.Feature(new ol.geom.Point(ol.proj.fromLonLat([coordinates[0][0], coordinates[0][1]])));
         markers.getSource().addFeature(marker);
+
+        document.getElementById('lon').innerText = 'LON: ' + coordinates[0][0].toFixed(7);
+        document.getElementById('lat').innerText = 'LAT: ' + coordinates[0][1].toFixed(7);
     });
 }
