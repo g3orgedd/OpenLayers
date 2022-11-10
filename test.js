@@ -1,7 +1,23 @@
+import { ScaleLine, defaults as defaultControls } from '/libs/OpenLayers/package_710/control.js';
+// import { DragRotateAndZoom, defaults as defaultInteractions } from '/libs/OpenLayers/package_710/interaction.js';
+// import DragRotateAndZoom from '/libs/OpenLayers/package_710/interaction.js';
+
 window.onload = init;
 
 function init() {
+    const scaleControl = new ol.control.ScaleLine({
+        units: 'metric',
+        bar: true,
+        steps: 4,
+        text: true,
+        minWidth: 140,
+    });
+
+    // const dragControl = new ol.interaction.DragRotateAndZoom();
+
     const map = new ol.Map({
+        // interactions: defaultInteractions().extend([new DragRotateAndZoom()]),
+        controls: defaultControls().extend([scaleControl]),
         view: new ol.View({
             center: [0, 0], // центрирование карты
             // maxZoom: 15, // максимальный зум
@@ -101,14 +117,40 @@ function init() {
         console.log("Lat " + e.coordinate[1])
     })
     */
+    
+    // the code below checks the drawing of marks from an array
+    let marksCoords = [[
+            [-19.771039603960403, -23.682991601012603],
+            [26.753191766545076, -18.43329725640261],
+            [56.20603178738928, -18.96637883194518]
+        ]
+    ];
 
     map.on('click', function(e) {
-        var coordinates = Array(1).fill(ol.proj.transform(e.coordinate, 'EPSG:3857', 'EPSG:4326'));
+        let coordinates = Array(1).fill(ol.proj.transform(e.coordinate, 'EPSG:3857', 'EPSG:4326'));
 
         var marker = new ol.Feature(new ol.geom.Point(ol.proj.fromLonLat([coordinates[0][0], coordinates[0][1]])));
         markers.getSource().addFeature(marker);
 
+        // marksCoords.push(coordinates)
+        // console.log(marksCoords)
+
         document.getElementById('lon').innerText = 'LON: ' + coordinates[0][0].toFixed(7);
         document.getElementById('lat').innerText = 'LAT: ' + coordinates[0][1].toFixed(7);
     });
+
+    /*
+    marksCoords.forEach(element => {
+        var marker = new ol.Feature(new ol.geom.Point(ol.proj.fromLonLat([element[0][0], element[0][1]])));
+        markers.getSource().addFeature(marker);
+    });
+    */
+   
+    /*
+    for (let i = 0; i < marksCoords.length; i++) {
+        // var marker = new ol.Feature(new ol.geom.Point(ol.proj.fromLonLat([coords[i].lon, coords[i].lat])));
+        var marker = new ol.Feature(new ol.geom.Point(ol.proj.fromLonLat([marksCoords[i][0], marksCoords[i][1]])));
+        markers.getSource().addFeature(marker);
+    }
+    */
 }
