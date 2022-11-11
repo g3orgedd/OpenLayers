@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+
+	<script src="libs/jQuery/jquery.js"></script>	
 </head>
 <body>
     <div class="grid-container">
@@ -47,5 +49,24 @@
     </div>
     <script src="libs/OpenLayers/ol.js"></script>
     <script type="module" src="test.js"></script>
+	<script>
+		$('#save_button').click(function(){
+			let lon = $('#lon').text().substr(5)
+			let lat = $('#lat').text().substr(5)
+			
+			$.ajax({
+				method: "POST",
+				url: "save_points.php",
+				data: {lon: lon, lat: lat}
+
+			}).done(function( msg ) {
+console.log( "Data Saved: " + msg )
+			}).fail(function(er) {
+console.log(er)			
+			})
+		})
+	
+	</script>
+	
 </body>
 </html>

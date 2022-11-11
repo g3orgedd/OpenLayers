@@ -1,23 +1,25 @@
-import { ScaleLine, defaults as defaultControls } from '/libs/OpenLayers/package_710/control.js';
+//import { ScaleLine, defaults as defaultControls } from 'libs/OpenLayers/package_710/control.js';
+//import { ScaleLine, defaults as defaultControls } from '/libs/OpenLayers/package_710/control.js';
 // import { DragRotateAndZoom, defaults as defaultInteractions } from '/libs/OpenLayers/package_710/interaction.js';
 // import DragRotateAndZoom from '/libs/OpenLayers/package_710/interaction.js';
 
 window.onload = init;
 
 function init() {
-    const scaleControl = new ol.control.ScaleLine({
+/*   
+   const scaleControl = new ol.control.ScaleLine({
         units: 'metric',
         bar: true,
         steps: 4,
         text: true,
         minWidth: 140,
     });
-
+*/
     // const dragControl = new ol.interaction.DragRotateAndZoom();
 
     const map = new ol.Map({
         // interactions: defaultInteractions().extend([new DragRotateAndZoom()]),
-        controls: defaultControls().extend([scaleControl]),
+        //controls: defaultControls().extend([scaleControl]),
         view: new ol.View({
             center: [0, 0], // центрирование карты
             // maxZoom: 15, // максимальный зум
