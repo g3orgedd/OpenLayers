@@ -56,17 +56,18 @@
 			
 			$.ajax({
 				method: "POST",
-				url: "save_points.php",
-				data: {lon: lon, lat: lat}
-
-			}).done(function( msg ) {
-console.log( "Data Saved: " + msg )
-			}).fail(function(er) {
-console.log(er)			
+				url: "php/save_points.php",
+				data: {
+                    name: 'point',
+                    lon: lon, 
+                    lat: lat
+                }
+			}).done(function(msg) {
+                console.log("Data Saved: " + msg)
+			}).fail(function(error) {
+                console.log(error)			
 			})
 		})
-	
 	</script>
-	
 </body>
 </html>
