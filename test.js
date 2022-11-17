@@ -1,6 +1,8 @@
 import { ScaleLine, FullScreen, defaults as defaultControls } from '/libs/OpenLayers/package_710/control.js';
 // import { DragRotateAndZoom, defaults as defaultInteractions } from '/libs/OpenLayers/package_710/interaction.js';
 // import Draw from '/libs/OpenLayers/package_710/interaction/Draw.js';
+import MousePosition from '/libs/OpenLayers/package_710/control/MousePosition.js';
+import { createStringXY } from '/libs/OpenLayers/package_710/coordinate.js';
 
 window.onload = init;
 
@@ -17,13 +19,22 @@ function init() {
 
     // const dragControl = new ol.interaction.DragRotateAndZoom();
 
+    // Mouse position
+    const mousePositionControl = new MousePosition({
+        coordinateFormat: createStringXY(7),
+        projection: 'EPSG:4326',
+        className: 'custom-mouse-position',
+        target: document.getElementById('mouse-position')
+    });
+
     const map = new ol.Map({
         /*interactions: defaultInteractions().extend([
             new DragRotateAndZoom()
         ]),*/
         controls: defaultControls().extend([
             new ScaleLine(),
-            new FullScreen()
+            new FullScreen(),
+            mousePositionControl
         ]),
         view: new ol.View({
             center: [0, 0], // центрирование карты
