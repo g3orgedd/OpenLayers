@@ -21,19 +21,24 @@ body {
   /* grid-template-rows: 100vh; */
 }
 
-.sidebar {
+.layers, .coords {
   margin: 15px;
   border-bottom: 1px solid #858585;
-}
-
-.coordinates {
-  margin: 15px;
 }
 
 .btn-save {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+}
+
+.geom-type {
+  margin: 15px;
+}
+
+.form-select {
+  font-size: 1.2rem;
+  width: 100%;
 }
 
 button {
