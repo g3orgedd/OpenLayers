@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Features</title>
+    <link rel="stylesheet" href="/node_modules/ol/ol.css">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- <script src="libs/jQuery/jquery.js"></script>	 -->
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js"></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+    </style> 
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-1">
+            <div class="layers">
+                <form class="sidebar-form">
+                    <h2>Выбор слоя</h2>
+                    <label>
+                        <input type="radio" name="BaseLayerMap" value="OSMStandart" checked>Open Steet Map
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="BaseLayerMap" value="GoogleTerrainRoads">Google Map
+                    </label>
+                </form>
+            </div>
+
+            <div class="coords">
+                <form class="sidebar-form">
+                    <div class="coordinates">
+                        <h2>Координаты</h2>
+                        <div id="lon">LON: </div>
+                        <div id="lat">LAT: </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="geom-type">
+                <span class="input-group">
+                    <h2>Геометрия:</h2>
+                    <select class="form-select" id="type">
+                        <option value="None">None</option>
+                        <option value="Point">Point</option>
+                        <option value="LineString">LineString</option>
+                        <option value="Polygon">Polygon</option>
+                        <option value="Circle">Circle</option>
+                    </select>
+                    <!-- <input class="form-control" type="button" value="Undo" id="undo"> -->
+                </span>
+            </div>
+          
+            <div class="btn-save">
+                <!-- <button id="save_button">Сохранить</button> -->
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div id="mouse_position" class="mouse-position"></div>
+            <div id="map" class="map"></div>
+        </div>
+    </div>
+
+    <!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
+    <script src="https://unpkg.com/elm-pep@1.0.6/dist/elm-pep.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

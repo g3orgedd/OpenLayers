@@ -1,0 +1,74 @@
+@import "./node_modules/ol/ol.css";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  /* font-family: 'Nunito Sans', sans-serif; */
+}
+.map {
+  /* position: absolute; */
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+}
+.map .ol-rotate {
+  top: 3.5em;
+}
+.ol-control {
+  font: 1.2em sans-serif;
+}
+.ol-zoomslider {
+  top: 3.7em;
+}
+.ol-overviewmap {
+  bottom: 2em;
+}
+.ol-zoom-extent  {
+  top: 2em;
+  left: auto;
+  right: 0.5em;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 10vw 90vw;
+  /* grid-template-rows: 100vh; */
+}
+.layers, .coords {
+  margin: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #858585;
+}
+.btn-save {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.geom-type {
+  margin: 15px;
+}
+.form-select {
+  font-size: 1.2rem;
+  width: 100%;
+}
+h2 {
+  margin: 0 0 15px 0;
+}
+/* button {
+  border: none;
+  cursor: pointer;
+  padding: 5px 15px;
+  background: #55c358;
+  color: white;
+  font-weight: bold;
+  border-radius: 7px;
+  font-size: 17px;
+  line-height: 1.9;
+}
+button:hover {
+  background: #469f49;
+} */
