@@ -30,7 +30,7 @@ import {
   ZoomToExtent, OverviewMap, ZoomSlider, FullScreen, ScaleLine, 
   defaults as defaultControls
 } from 'ol/control';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, transform } from 'ol/proj';
 
 /***
  * Program
@@ -192,4 +192,14 @@ document.getElementById('myLocation').addEventListener('click', function() {
       zoom: 19
     })
   );
+});
+
+map.on('click', function(e) {
+  let coordinates = Array(1).fill(transform(e.coordinate, 'EPSG:3857', 'EPSG:4326'));
+
+  // marksCoords.push(coordinates)
+  // console.log(marksCoords)
+
+  document.getElementById('lon').innerText = 'LON: ' + coordinates[0][0].toFixed(10);
+  document.getElementById('lat').innerText = 'LAT: ' + coordinates[0][1].toFixed(10);
 });

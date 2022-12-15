@@ -25,7 +25,6 @@
     <div class="row">
         <div class="col-6 col-md-2">
             <div class="block-1">
-                <h2>Select Layer</h2>
                 <div class="btn-group-vertical">
                     <input class="btn-check" type="radio" name="BaseLayerMap" value="OSMStandart" id="option1" autocomplete="off" checked>
                     <label class="btn btn-success" for="option1"> Open Steet Map </label>
@@ -36,17 +35,10 @@
             </div>
 
             <div class="block-1">
-                <form class="sidebar-form">
-                    <div class="coordinates">
-                        <h2>Coordinates</h2>
-                        <div id="lon">LON: </div>
-                        <div id="lat">LAT: </div>
-                    </div>
-                </form>
+                <button type="button" class="btn btn-primary" id="myLocation">My Location</button>
             </div>
 
             <div class="block-1">
-                <h2>Geometry</h2>
                 <div class="input-group">
                     <select class="form-select" id="type">
                         <option value="None">None</option>
@@ -58,12 +50,15 @@
                     <!-- <input class="form-control" type="button" value="Undo" id="undo"> -->
                 </div>
             </div>
-          
-            <div class="block-1">
-                <button type="button" class="btn btn-primary" id="myLocation">My Location</button>
+            
+            <div class="block-2">
+                <div class="coordinates">
+                    <div id="lon">LON: </div>
+                    <div id="lat">LAT: </div>
+                </div>
             </div>
         </div>
-
+        
         <div class="col-sm-6 col-lg-10">
             <div id="mouse_position" class="mouse-position"></div>
             <div id="map" class="map"></div>
