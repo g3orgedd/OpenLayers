@@ -8,6 +8,9 @@ html, body {
   position: relative;
   /* font-family: 'Nunito Sans', sans-serif; */
 }
+.row {
+  --bs-gutter-x: 0;
+}
 .map {
   /* position: absolute; */
   top: 0;
@@ -32,31 +35,27 @@ html, body {
   left: auto;
   right: 0.5em;
 }
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 10vw 90vw;
-  /* grid-template-rows: 100vh; */
-}
-.layers, .coords {
-  margin: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #858585;
-}
 .btn-save {
   display: flex;
   align-items: flex-start;
   justify-content: center;
 }
-.geom-type {
+.block-1 {
   margin: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #858585;
 }
 .form-select {
   font-size: 1.2rem;
   width: 100%;
 }
 h2 {
+  text-align: center;
   margin: 0 0 15px 0;
+  font-size: 1.7rem;
+}
+.btn-group-vertical, .btn-primary {
+  width: 100%;
 }
 /* button {
   border: none;
@@ -71,4 +70,21 @@ h2 {
 }
 button:hover {
   background: #469f49;
-} */
+} 
+*/
+
+@media (min-width: 768px){
+  .col-md-2 {
+    flex: 0 0 auto;
+    width: 10%;
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-10 {
+      flex: 0 0 auto;
+      width: 90%;
+      padding: 0;
+  }
+}
