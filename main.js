@@ -7,14 +7,18 @@ import View from 'ol/View';
 import OSM from 'ol/source/OSM';
 import TileImage from 'ol/source/TileImage';
 import Geolocation from 'ol/Geolocation';
+import BingMaps from 'ol/source/BingMaps';
+import Graticule from 'ol/layer/Graticule';
+import Stroke from 'ol/style/Stroke';
+import TileDebug from 'ol/source/TileDebug';
 
 import { Vector as VectorSource } from 'ol/source';
 import { 
   Vector as VectorLayer, 
-  VectorImage as VectorImageLayer
+  VectorImage as VectorImageLayer,
 } from 'ol/layer';
 
-import {GPX, GeoJSON, IGC, KML, TopoJSON} from 'ol/format';
+import {GPX, GeoJSON, IGC, KML, TopoJSON,} from 'ol/format';
 
 import { 
   Draw, Snap, Modify, 
@@ -23,14 +27,14 @@ import {
 } from 'ol/interaction';
 
 import {
-  Tile as TileLayer, Group as LayerGroup
- } from 'ol/layer';
+  Tile as TileLayer, Group as LayerGroup,
+} from 'ol/layer';
 
 import { 
   ZoomToExtent, OverviewMap, ZoomSlider, FullScreen, ScaleLine, 
-  defaults as defaultControls
+  defaults as defaultControls,
 } from 'ol/control';
-import { fromLonLat, transform } from 'ol/proj';
+import { fromLonLat, transform, } from 'ol/proj';
 
 /***
  * Program
@@ -130,19 +134,34 @@ typeSelect.onchange = function () {
   addInteraction();
 };
 
-addInteraction();
+// addInteraction();
 
-// OSM Layer
+// Undo function
+document.getElementById('undo').addEventListener('click', function () {
+  draw.removeLastPoint();
+});
+
+// OSM layer
 const OSMap = new TileLayer({
   title: 'OSMStandart',
   source: new OSM(),
 });
 
-// Google Layer
+// Google layer
 const GoogleMap = new TileLayer({
   title: "GoogleTerrainRoads",
   source: new TileImage({ 
     url: 'http://mt1.google.com/vt/lyrs=m&hl=ru&x={x}&y={y}&z={z}'
+  }),
+  visible: false
+});
+
+// Bing layer
+const BingMapL = new TileLayer({
+  title: "BingMapLayer",
+  source: new BingMaps({ 
+    key: 'AsraMovwJhfFMIfvvB7hVPQyOwe23_5n79AE8T-Y2w_92UJ6qAA4lEH7Qs3DQ2v5',
+    imagerySet: 'RoadOnDemand',
   }),
   visible: false
 });
@@ -152,12 +171,13 @@ const layerGroup = new LayerGroup({
   layers: [
     OSMap,
     GoogleMap,
+    BingMapL,
   ]
 });
 
-// Add Layer Group
+// Add Layer group
 map.addLayer(layerGroup);
-// Add Vector Layer
+// Add Vector layer
 map.addLayer(vector);
 
 const baseLayerElements = document.querySelectorAll('.btn-group-vertical > input[type=radio]')
@@ -192,6 +212,7 @@ document.getElementById('myLocation').addEventListener('click', function() {
       zoom: 19
     })
   );
+  console.log(geolocation.getPosition());
 });
 
 map.on('click', function(e) {
@@ -202,4 +223,44 @@ map.on('click', function(e) {
 
   document.getElementById('lon').innerText = 'LON: ' + coordinates[0][0].toFixed(10);
   document.getElementById('lat').innerText = 'LAT: ' + coordinates[0][1].toFixed(10);
+});
+
+// Graticule function
+const graticule = new Graticule({
+  // the style to use for the lines, optional.
+  strokeStyle: new Stroke({
+    color: 'rgba(255, 120, 0, 0.9)',
+    width: 2,
+    lineDash: [0.5, 3],
+  }),
+  showLabels: true,
+  visible: false,
+  wrapX: false,
+});
+
+// Add Graticule layer
+map.addLayer(graticule);
+
+const showGraticuleCheckbox = document.getElementById('inlineCheckbox3');
+
+showGraticuleCheckbox.addEventListener('change', function() {
+  graticule.setVisible(showGraticuleCheckbox.checked);
+});
+
+// Debug layer
+const debugLayer = new TileLayer({
+  source: new TileDebug({
+    tileGrid: new OSM().getTileGrid(),
+    projection: new OSM().getProjection(),
+  }),
+  visible: false,
+});
+
+// Add debugLayer layer
+map.addLayer(debugLayer);
+
+const showTilesCheckbox = document.getElementById('inlineCheckbox2');
+
+showTilesCheckbox.addEventListener('change', function() {
+  debugLayer.setVisible(showTilesCheckbox.checked);
 });
