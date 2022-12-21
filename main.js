@@ -11,6 +11,7 @@ import BingMaps from 'ol/source/BingMaps';
 import Graticule from 'ol/layer/Graticule';
 import Stroke from 'ol/style/Stroke';
 import TileDebug from 'ol/source/TileDebug';
+import Link from 'ol/interaction/Link';
 
 import { Vector as VectorSource } from 'ol/source';
 import { 
@@ -87,15 +88,19 @@ var map = new Map({
   // layers: [raster, vector],
   target: 'map',
   view: new View({
-    center: [500000, 6000000],
+    center: [4193730.99826, 7505925.25007],
     zoom: 7,
   }),
 });
 
 const typeSelect = document.getElementById('type');
 
+// Adds modify interaction
 const modify = new Modify({source: source});
 map.addInteraction(modify);
+
+// Adds map state sync with url
+map.addInteraction(new Link());
 
 let draw, snap; // Global to remove it later
 
@@ -175,9 +180,9 @@ const layerGroup = new LayerGroup({
   ]
 });
 
-// Add Layer group
+// Adds Layer group
 map.addLayer(layerGroup);
-// Add Vector layer
+// Adds Vector layer
 map.addLayer(vector);
 
 const baseLayerElements = document.querySelectorAll('.btn-group-vertical > input[type=radio]')
@@ -256,7 +261,7 @@ const debugLayer = new TileLayer({
   visible: false,
 });
 
-// Add debugLayer layer
+// Adds debugLayer layer
 map.addLayer(debugLayer);
 
 const showTilesCheckbox = document.getElementById('inlineCheckbox2');
