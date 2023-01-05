@@ -12,17 +12,21 @@ import Graticule from 'ol/layer/Graticule';
 import Stroke from 'ol/style/Stroke';
 import TileDebug from 'ol/source/TileDebug';
 import Link from 'ol/interaction/Link';
+import Geometry from 'ol/geom/Geometry';
+import MousePosition from 'ol/control/MousePosition';
 
+import { createStringXY } from 'ol/coordinate';
 import { Vector as VectorSource } from 'ol/source';
 import { 
   Vector as VectorLayer, 
   VectorImage as VectorImageLayer,
 } from 'ol/layer';
 
-import {GPX, GeoJSON, IGC, KML, TopoJSON,} from 'ol/format';
+import { GPX, GeoJSON, IGC, KML, TopoJSON, } from 'ol/format';
 
 import { 
   Draw, Snap, Modify, 
+  Select, Translate,
   DragAndDrop, DragRotateAndZoom, 
   defaults as defaultInteractions,
 } from 'ol/interaction';
@@ -67,9 +71,28 @@ const overviewMapControl = new OverviewMap({
   ],
 });
 
+// Adds selection feature
+const select = new Select();
+
+// Adds translate feature
+const translate = new Translate({
+  features: select.getFeatures(),
+});
+
+// Adds mouse position coords on the map
+const mousePositionControl = new MousePosition({
+  coordinateFormat: createStringXY(7),
+  projection: 'EPSG:4326',
+  // comment the following two lines to have the mouse position
+  // be placed within the map.
+  // className: 'custom-mouse-position',
+  // target: document.getElementById('mouse-position'),
+});
+
 // Create map variable to init ol
 var map = new Map({
   controls: defaultControls().extend([
+    mousePositionControl,
     overviewMapControl,
     new ScaleLine(),
     new FullScreen(),
@@ -84,23 +107,26 @@ var map = new Map({
   interactions: defaultInteractions().extend([
     new DragRotateAndZoom(),
     dragAndDropInteraction,
+    select,
+    translate,
   ]),
   // layers: [raster, vector],
   target: 'map',
   view: new View({
     center: [4193730.99826, 7505925.25007],
     zoom: 7,
+    projection: 'EPSG:3857',
   }),
 });
 
-const typeSelect = document.getElementById('type');
+const typeSelect = document.getElementById('geom_type');
 
 // Adds modify interaction
 const modify = new Modify({source: source});
 map.addInteraction(modify);
 
 // Adds map state sync with url
-map.addInteraction(new Link());
+// map.addInteraction(new Link());
 
 let draw, snap; // Global to remove it later
 
@@ -220,8 +246,10 @@ document.getElementById('myLocation').addEventListener('click', function() {
   console.log(geolocation.getPosition());
 });
 
+/*
 map.on('click', function(e) {
-  let coordinates = Array(1).fill(transform(e.coordinate, 'EPSG:3857', 'EPSG:4326'));
+  // let coordinates = Array(1).fill(transform(e.coordinate, 'EPSG:3857', 'EPSG:4326'));
+  // let coordinates = Array(1).fill(e.coordinate);
 
   // marksCoords.push(coordinates)
   // console.log(marksCoords)
@@ -229,6 +257,7 @@ map.on('click', function(e) {
   document.getElementById('lon').innerText = 'LON: ' + coordinates[0][0].toFixed(10);
   document.getElementById('lat').innerText = 'LAT: ' + coordinates[0][1].toFixed(10);
 });
+*/
 
 // Graticule function
 const graticule = new Graticule({
@@ -268,4 +297,10 @@ const showTilesCheckbox = document.getElementById('inlineCheckbox2');
 
 showTilesCheckbox.addEventListener('change', function() {
   debugLayer.setVisible(showTilesCheckbox.checked);
+});
+
+// Changes projection cooddinates on the map
+const projectionSelect = document.getElementById('proj_type');
+projectionSelect.addEventListener('change', function (event) {
+  mousePositionControl.setProjection(event.target.value);
 });

@@ -17,6 +17,8 @@ html, body {
   bottom: 0;
   width: 100%;
   height: 100vh;
+  /* border-bottom: 1px solid black; */
+  /* border-left: 1px solid black; */
 }
 .map .ol-rotate {
   top: 3.5em;
@@ -35,6 +37,9 @@ html, body {
   left: auto;
   right: 0.5em;
 }
+.ol-mouse-position {
+  right: 45px;
+}
 .btn-save {
   display: flex;
   align-items: flex-start;
@@ -44,6 +49,9 @@ html, body {
   margin: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #858585;
+}
+.block-1:last-child {
+  border: none;
 }
 .block-2 {
   margin: 15px;
@@ -60,10 +68,12 @@ h2 {
   margin: 0 0 15px 0;
   font-size: 1.7rem;
 }
-.btn-group-vertical, .btn-primary {
+.btn-group-vertical, .btn {
   width: 100%;
 }
-
+#geom_type {
+  margin-bottom: 5px;
+}
 /* button {
   border: none;
   cursor: pointer;
@@ -92,4 +102,12 @@ button:hover {
       width: 89%;
       padding: 0;
   }
+}
+.noselect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
