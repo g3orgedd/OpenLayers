@@ -39,7 +39,12 @@ import {
   ZoomToExtent, OverviewMap, ZoomSlider, FullScreen, ScaleLine, 
   defaults as defaultControls,
 } from 'ol/control';
-import { fromLonLat, transform, } from 'ol/proj';
+
+import { 
+  getPointResolution,
+  fromLonLat, 
+  transform, 
+  get as getProjection} from 'ol/proj';
 
 /***
  * Program
@@ -50,10 +55,10 @@ const dragAndDropInteraction = new DragAndDrop({
   formatConstructors: [GPX, GeoJSON, IGC, KML, TopoJSON],
 });
 
-const source = new VectorSource({wrapX: false});
+const vSource = new VectorSource({wrapX: false});
 // Create a vector variable to interact with later
 const vector = new VectorLayer({
-  source: source,
+  source: vSource,
   style: {
     'fill-color': 'rgba(255, 255, 255, 0.2)',
     'stroke-color': '#3333ff',
@@ -82,7 +87,7 @@ const translate = new Translate({
 // Adds mouse position coords on the map
 const mousePositionControl = new MousePosition({
   coordinateFormat: createStringXY(7),
-  projection: 'EPSG:4326',
+  projection: 'EPSG:3857',
   // comment the following two lines to have the mouse position
   // be placed within the map.
   // className: 'custom-mouse-position',
@@ -91,6 +96,11 @@ const mousePositionControl = new MousePosition({
 
 // Create map variable to init ol
 var map = new Map({
+  layers: [
+    new TileLayer({
+      source: new OSM(),
+    }),
+  ],
   controls: defaultControls().extend([
     mousePositionControl,
     overviewMapControl,
@@ -122,7 +132,7 @@ var map = new Map({
 const typeSelect = document.getElementById('geom_type');
 
 // Adds modify interaction
-const modify = new Modify({source: source});
+const modify = new Modify({source: vSource});
 map.addInteraction(modify);
 
 // Adds map state sync with url
@@ -134,12 +144,12 @@ function addInteraction() {
   const value = typeSelect.value;
   if (value !== 'None') {
     draw = new Draw({
-      source: source,
+      source: vSource,
       type: value,
     });
     map.addInteraction(draw);
     snap = new Snap({
-      source: source
+      source: vSource
     });
     map.addInteraction(snap);
   }
@@ -304,3 +314,49 @@ const projectionSelect = document.getElementById('proj_type');
 projectionSelect.addEventListener('change', function (event) {
   mousePositionControl.setProjection(event.target.value);
 });
+
+// Adds opacity change function
+const opacityInput = document.getElementById('opacity-input');
+const opacityOutput = document.getElementById('opacity-output');
+
+function opacityUpdate() {
+  const opacity = parseFloat(opacityInput.value);
+  layerGroup.setOpacity(opacity);
+  opacityOutput.innerText = opacity.toFixed(2);
+}
+opacityInput.addEventListener('input', opacityUpdate);
+opacityUpdate();
+
+
+const viewProjSelect = document.getElementById('proj_type');
+
+function onChangeProjection() {
+  const currentView = map.getView();
+  const currentProjection = currentView.getProjection();
+  const newProjection = getProjection(viewProjSelect.value);
+  const currentResolution = currentView.getResolution();
+  const currentCenter = currentView.getCenter();
+  const currentRotation = currentView.getRotation();
+  const newCenter = transform(currentCenter, currentProjection, newProjection);
+  const currentMPU = currentProjection.getMetersPerUnit();
+  const newMPU = newProjection.getMetersPerUnit();
+
+  const currentPointResolution = getPointResolution(
+      currentProjection, 1 / currentMPU, currentCenter, 'm'
+    ) * currentMPU;
+
+  const newPointResolution = getPointResolution(
+      newProjection, 1 / newMPU, newCenter, 'm'
+    ) * newMPU;
+
+  const newResolution = (currentResolution * currentPointResolution) / newPointResolution;
+    
+  const newView = new View({
+    center: newCenter,
+    resolution: newResolution,
+    rotation: currentRotation,
+    projection: newProjection,
+  });
+  map.setView(newView);
+}
+viewProjSelect.addEventListener('change', onChangeProjection);

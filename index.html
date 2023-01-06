@@ -78,10 +78,8 @@
             <div class="block-1">
                 <div class="form-floating" id="prjctn_type">
                     <select class="form-select" id="proj_type">
-                        <option value="EPSG:4326">EPSG:4326</option>
                         <option value="EPSG:3857">EPSG:3857</option>
-                        <option value="ESRI:54009">ESRI:54009</option>
-                        <option value="EPSG:3413">EPSG:3413</option>
+                        <option value="EPSG:4326">EPSG:4326</option>
                     </select>
                     <label for="proj_type">Projection</label>
                 </div>
@@ -89,8 +87,8 @@
             
             <div class="block-1">
                 <div class="input-group" id="opacity_lvl">
-                    <label for="opacity-input" class="input-group-text">Layer Opacity: </label>
-                    <input type="range" min="0" max="1" step="0.1" value="1" class="form-range" id="opacity-input">
+                    <label for="opacity-input" class="input-group">Layer Opacity:&nbsp<span id="opacity-output"></span></label>
+                    <input type="range" min="0" max="1" step="0.01" value="1" class="form-range" id="opacity-input">
                 </div>
             </div>
 
