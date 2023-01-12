@@ -11,8 +11,6 @@ import BingMaps from 'ol/source/BingMaps';
 import Graticule from 'ol/layer/Graticule';
 import Stroke from 'ol/style/Stroke';
 import TileDebug from 'ol/source/TileDebug';
-import Link from 'ol/interaction/Link';
-import Geometry from 'ol/geom/Geometry';
 import MousePosition from 'ol/control/MousePosition';
 
 import { createStringXY } from 'ol/coordinate';
@@ -46,9 +44,6 @@ import {
   transform, 
   get as getProjection
 } from 'ol/proj';
-
-import Style from 'ol/style/Style';
-import { rotate } from 'ol/transform';
 
 /***
  * Program
