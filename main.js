@@ -44,7 +44,11 @@ import {
   getPointResolution,
   fromLonLat, 
   transform, 
-  get as getProjection} from 'ol/proj';
+  get as getProjection
+} from 'ol/proj';
+
+import Style from 'ol/style/Style';
+import { rotate } from 'ol/transform';
 
 /***
  * Program
@@ -115,7 +119,7 @@ var map = new Map({
     }),
   ]),
   interactions: defaultInteractions().extend([
-    new DragRotateAndZoom(),
+    // new DragRotateAndZoom(),
     dragAndDropInteraction,
     select,
     translate,
@@ -132,7 +136,9 @@ var map = new Map({
 const typeSelect = document.getElementById('geom_type');
 
 // Adds modify interaction
-const modify = new Modify({source: vSource});
+const modify = new Modify({
+  source: vSource,
+});
 map.addInteraction(modify);
 
 // Adds map state sync with url
@@ -327,7 +333,7 @@ function opacityUpdate() {
 opacityInput.addEventListener('input', opacityUpdate);
 opacityUpdate();
 
-
+// The function below allows you to change the projection of the map
 const viewProjSelect = document.getElementById('proj_type');
 
 function onChangeProjection() {
