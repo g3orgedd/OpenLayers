@@ -39,56 +39,111 @@
 
             <div class="block-1">
                 <div class="btn-group-vertical">
-                    <button type="button" class="btn btn-primary" id="myLocation">My Location</button>
+                    <button type="button" class="btn btn-primary" id="myLocation">Моё местоположение</button>
                 </div>
             </div>
 
             <div class="block-1">
                 <div class="form-floating">
-                    <select class="form-select" id="geom_type">
-                        <option value="None">None</option>
-                        <option value="Point">Point</option>
-                        <option value="LineString">Line</option>
-                        <option value="Polygon">Polygon</option>
-                        <option value="Circle">Circle</option>
+                    <select class="form-select form-select" id="geom_type">
+                        <option value="None">Выбрать</option>
+                        <option value="Point">Точка</option>
+                        <option value="LineString">Линия</option>
+                        <option value="Polygon">Полигон</option>
+                        <option value="Circle">Круг</option>
                     </select>
-                    <label for="geom_type">Geometry</label>
-                    
-                    <!-- <input class="form-control" type="button" value="Undo" id="undo"> -->
+                    <label for="geom_type">Геометрия</label>
                 </div>
-                <button type="button" class="btn btn-dark" id="undo">Undo</button>
+                <button type="button" class="btn btn-dark" id="undo">Отмена</button>
                 <!-- <input class="form-control" type="button" value="Undo" id="undo"> -->
+
+                <div id="measureOptions">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="showLengthArea" value="option1">
+                        <label class="form-check-label noselect" for="showLengthArea"> Show Length/Area </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="showSegmentLengths" value="option1">
+                        <label class="form-check-label noselect" for="showSegmentLengths"> Длины сегментов </label>
+                    </div>
+                    <!-- <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="clearPrevMeasure" value="option2" disabled>
+                        <label class="form-check-label noselect" for="clearPrevMeasure"> Clear last measure </label>
+                    </div> -->
+                </div>
             </div>
 
             <div class="block-1">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" disabled>
-                    <label class="form-check-label noselect" for="inlineCheckbox1"> Reprojection Edges </label>
+                    <label class="form-check-label noselect" for="inlineCheckbox1"> Грани проекции </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                    <label class="form-check-label noselect" for="inlineCheckbox2"> Tile Coordinates </label>
+                    <label class="form-check-label noselect" for="inlineCheckbox2"> Координаты сетки </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                    <label class="form-check-label noselect" for="inlineCheckbox3"> Show Graticule </label>
+                    <label class="form-check-label noselect" for="inlineCheckbox3"> Показать сетку </label>
                 </div>
             </div>
 
             <div class="block-1">
                 <div class="form-floating" id="prjctn_type">
-                    <select class="form-select" id="proj_type">
+                    <select class="form-select form-select" id="proj_type">
                         <option value="EPSG:3857">EPSG:3857</option>
                         <option value="EPSG:4326">EPSG:4326</option>
                     </select>
-                    <label for="proj_type">Projection</label>
+                    <label for="proj_type">Проекция</label>
+                </div>
+            </div>
+            
+            
+            <!-- <div class="block-1">
+                <div class="form-floating" id="msr_type">
+                    <select class="form-select" id="measure_type">
+                        <option value="None">Выбрать</option>
+                        <option value="LineString">Длина (Линия)</option>
+                        <option value="Polygon">Площадь (Полигон)</option>
+                    </select>
+                    <label for="measure_type">Тип измерения</label>
+                </div>
+            </div> -->
+
+            <div class="block-1">
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <select class="form-select" id="page_size">
+                                <option value="a0">A0 (slow)</option>
+                                <option value="a1">A1</option>
+                                <option value="a2">A2</option>
+                                <option value="a3">A3</option>
+                                <option value="a4" selected>A4</option>
+                                <option value="a5">A5 (fast)</option>
+                            </select>
+                            <label for="page_size">Size</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <select class="form-select" id="page_res">
+                                <option value="72"> 72 dpi (fast) </option>
+                                <option value="150"> 150 dpi </option>
+                                <option value="200" selected> 200 dpi </option>
+                                <option value="300"> 300 dpi (slow) </option>
+                            </select>
+                            <label for="page_res">Resolution</label>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-dark" id="save_pdf">Save PDF</button>
                 </div>
             </div>
             
             <div class="block-1">
                 <div class="input-group" id="opacity_lvl">
-                    <label for="opacity-input" class="input-group">Layer Opacity:&nbsp<span id="opacity-output"></span></label>
                     <input type="range" min="0" max="1" step="0.01" value="1" class="form-range" id="opacity-input">
+                    <label for="opacity-input" class="input-group noselect">Layer Opacity:&nbsp<span id="opacity-output"></span></label>
                 </div>
             </div>
 
@@ -117,6 +172,8 @@
     </div>
 
     <!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
+    <script src="https://cdn.jsdelivr.net/npm/elm-pep@1.0.6/dist/elm-pep.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://unpkg.com/elm-pep@1.0.6/dist/elm-pep.js"></script>
     <script type="module" src="main.js"></script>
 </body>

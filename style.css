@@ -46,8 +46,8 @@ html, body {
   justify-content: center;
 }
 .block-1 {
-  margin: 15px;
-  padding-bottom: 15px;
+  margin: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #858585;
 }
 .block-1:last-child {
@@ -59,10 +59,10 @@ html, body {
   top: auto;
   bottom: 0;
 }
-.form-select {
+/* .form-select {
   font-size: 1.2rem;
   width: 100%;
-}
+} */
 h2 {
   text-align: center;
   margin: 0 0 15px 0;
@@ -73,6 +73,9 @@ h2 {
 }
 #geom_type {
   margin-bottom: 5px;
+}
+#measureOptions {
+  margin-top: 7px;
 }
 /* button {
   border: none;
