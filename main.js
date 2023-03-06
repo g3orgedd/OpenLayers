@@ -80,6 +80,7 @@ const vector = new VectorLayer({
   },
 });
 
+
 const overviewMapControl = new OverviewMap({
   layers: [
     new TileLayer({
@@ -95,6 +96,19 @@ const select = new Select();
 const translate = new Translate({
   features: select.getFeatures(),
 });
+
+// =================================================================
+// РАБОТАЕТ!
+$(".exportBtn").click(function(){
+	// vector - это имя слоя с которого все объекты сохраняются в geojson
+	
+    var json = new ol.format.GeoJSON().writeFeatures(vector.getSource().getFeatures(), { 
+      dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'
+    });
+    console.log(json);
+});
+
+// =================================================================
 
 // Adds mouse position coords on the map
 const mousePositionControl = new MousePosition({
