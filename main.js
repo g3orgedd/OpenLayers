@@ -267,7 +267,6 @@ function styleFunction(feature, segments, measureDrawType) {
 //   },
 // });
 
-
 // Create map variable to init ol
 var map = new Map({
   layers: [
@@ -316,8 +315,7 @@ map.addInteraction(modify);
 // Adds map state sync with url
 // map.addInteraction(new Link());
 
-let draw, snap; // Global to remove it later
-let drawMeasure; // global so we can remove it later
+let draw, snap, drawMeasure; // Global to remove it later
 
 function addInteraction() {
   const value = geomTypeSelect.value;
@@ -336,6 +334,19 @@ function addInteraction() {
         type: value,
       });
     }
+    draw.on('drawend', function(e) {
+      var customName = prompt();
+      // e.feature.setId(i);
+      let featureID = e.feature.ol_uid;
+      e.feature.setProperties({
+        'id': featureID,
+        // 'name': value + featureID,
+        'name': customName,
+        'description': value,
+      })
+      console.log(e.feature, e.feature.getProperties());
+    });
+
     map.addInteraction(draw);
     snap = new Snap({
       source: vSource
@@ -413,6 +424,12 @@ document.getElementById('undo').addEventListener('click', function () {
   draw.removeLastPoint();
 });
 
+// Delete function
+document.getElementById('delete').addEventListener('click', function () {
+  map.removeInteraction(draw);
+  addInteraction();
+});
+
 // OSM layer
 const OSMap = new TileLayer({
   title: 'OSMStandart',
@@ -452,7 +469,7 @@ map.addLayer(layerGroup);
 // Adds Vector layer
 map.addLayer(vector);
 
-const baseLayerElements = document.querySelectorAll('.btn-group-vertical > input[type=radio]')
+const baseLayerElements = document.querySelectorAll('.btn-group > input[type=radio]')
 for(let baseLayerElement of baseLayerElements) {
   baseLayerElement.addEventListener('change', function() {
     let baseLayerValue = this.value;
@@ -673,3 +690,68 @@ exportButton.addEventListener('click', function () {
   },
   false
 );
+
+// Export geoJson function 
+
+$(".exportJson").click(function() {
+  var json = new ol.format.GeoJSON().writeFeaturesObject(vector.getSource().getFeatures(), { 
+    dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'
+  });
+  // console.log(json);
+
+  // var features = vector.getSource().getFeatures();
+  // console.log(features);
+
+  
+  class JavascriptDataDownloader {
+
+    constructor(data = {json}) {
+        this.data = data;
+    }
+
+    download (type_of = "text/plain", filename= "data.geojson") {
+        let body = document.body;
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(this.data, null, 2)], {
+            type: type_of
+        }));
+
+        a.setAttribute("download", filename);
+        body.appendChild(a);
+
+        a.click();
+        body.removeChild(a);
+    }
+  } 
+  
+  new JavascriptDataDownloader(json).download();
+  
+});
+
+
+// var data = [[
+//   7356799.446749384,
+//   9193160.203377454
+// ],
+// [
+//   7400958.011798843,
+//   6024783.161078758
+// ],
+// [
+//   14366971.648351029,
+//   6035822.802341122
+// ],
+// [
+//   14311773.442039203,
+//   9193160.203377454
+// ],
+// [
+//   7356799.446749384,
+//   9193160.203377454
+// ]];
+
+// var polygon = new ol.Feature({
+//   geometry: new ol.geom.Polygon([data]),
+// });
+
+// vSource.addFeature(polygon);

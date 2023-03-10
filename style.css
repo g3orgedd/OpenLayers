@@ -59,6 +59,20 @@ html, body {
   top: auto;
   bottom: 0;
 }
+.menu {
+  height: 100vh;
+  overflow-y: auto;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.menu::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.btn-group {
+  width: 100%;
+}
 /* .form-select {
   font-size: 1.2rem;
   width: 100%;
