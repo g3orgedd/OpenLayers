@@ -335,8 +335,13 @@ function addInteraction() {
         type: value,
       });
     }
+    let i = 0;
     draw.on('drawend', function(e) {
-      var customName = prompt();
+      var customName = prompt('Введите название объекта');
+      
+      if(customName == null) {
+        customName = value + (i++);
+      }
       // e.feature.setId(i);
       let featureID = e.feature.ol_uid;
       e.feature.setProperties({
