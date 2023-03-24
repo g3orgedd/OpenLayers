@@ -213,3 +213,25 @@ showSegments.onchange = function () {
   vector.changed();
   draw.getOverlay().changed();
 };
+
+var geocoder = new Geocoder('nominatim', {
+  provider: 'osm',
+  key: '',
+  lang: 'ru-RU', //en-US, fr-FR
+  placeholder: 'Search for ...',
+  targetType: 'text-input',
+  featureStyle: ol.style.Style,
+  limit: 5,
+  keepOpen: true,
+  debug: true,
+});
+map.addControl(geocoder);
+
+geocoder.on('addresschosen', function(evt){
+  var feature = evt.feature,
+      coord = evt.coordinate,
+      address = evt.address;
+  // some popup solution
+  content.innerHTML = '<p>'+ address.formatted +'</p>';
+  overlay.setPosition(coord);
+});

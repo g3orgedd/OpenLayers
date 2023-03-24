@@ -272,6 +272,7 @@ function styleFunction(feature, segments, measureDrawType) {
 var map = new Map({
   layers: [
     new TileLayer({
+      preload: Infinity, 
       source: new OSM(),
     }),
     // raster, 
@@ -302,6 +303,7 @@ var map = new Map({
     center: [4193730.99826, 7505925.25007],
     zoom: 7,
     projection: 'EPSG:3857',
+    constrainResolution: true,
   }),
 });
 
@@ -733,7 +735,6 @@ $(".exportJson").click(function() {
   new JavascriptDataDownloader(json).download();
   
 });
-
 
 // var data = [[
 //   7356799.446749384,

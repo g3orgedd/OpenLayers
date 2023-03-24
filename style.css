@@ -5,20 +5,33 @@ html, body {
   padding: 0;
   height: 100%;
   font-family: 'Roboto', sans-serif;
-  position: relative;
-  /* font-family: 'Nunito Sans', sans-serif; */
 }
-.row {
+.container {
+  display: flex;
+  justify-self: flex-start;
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
   --bs-gutter-x: 0;
 }
+.item {
+  padding: 40px;
+  height: calc(100vh - 50px);
+  padding: 0;
+  margin: 0;
+}
+.item-1 {
+  flex-grow: 1;
+  max-width: 215px;
+}
+.item-2 {
+  flex-grow: 10;
+}
 .map {
-  /* position: absolute; */
   top: 0;
   bottom: 0;
   width: 100%;
-  height: 100vh;
-  /* border-bottom: 1px solid black; */
-  /* border-left: 1px solid black; */
+  height: calc(100vh - 50px);
 }
 .map .ol-rotate {
   top: 3.5em;
@@ -38,7 +51,12 @@ html, body {
   right: 0.5em;
 }
 .ol-mouse-position {
-  right: 45px;
+  right: 39px;
+  top: 10px;
+  background: var(--ol-background-color);
+  padding: 1px 10px;
+  border-radius: 3px;
+  border: 1px solid #c3c3c3;
 }
 .btn-save {
   display: flex;
@@ -60,7 +78,7 @@ html, body {
   bottom: 0;
 }
 .menu {
-  height: 100vh;
+  height: calc(100vh - 50px);
   overflow-y: auto;
   overflow: auto;
   -ms-overflow-style: none;
@@ -73,10 +91,6 @@ html, body {
 .btn-group {
   width: 100%;
 }
-/* .form-select {
-  font-size: 1.2rem;
-  width: 100%;
-} */
 h2 {
   text-align: center;
   margin: 0 0 15px 0;
@@ -88,37 +102,11 @@ h2 {
 #geom_type {
   margin-bottom: 5px;
 }
+#save_pdf {
+  margin-top: 5px;
+}
 #measureOptions {
   margin-top: 7px;
-}
-/* button {
-  border: none;
-  cursor: pointer;
-  padding: 5px 15px;
-  background: #55c358;
-  color: white;
-  font-weight: bold;
-  border-radius: 7px;
-  font-size: 17px;
-  line-height: 1.9;
-}
-button:hover {
-  background: #469f49;
-} 
-*/
-@media (min-width: 768px){
-  .col-md-2 {
-    flex: 0 0 auto;
-    width: 11%;
-    padding-right: 0;
-  }
-}
-@media (min-width: 992px) {
-  .col-lg-10 {
-      flex: 0 0 auto;
-      width: 89%;
-      padding: 0;
-  }
 }
 .noselect {
 	-webkit-touch-callout: none;
@@ -127,4 +115,7 @@ button:hover {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+.navbar {
+  color: white;
 }
