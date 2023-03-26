@@ -70,6 +70,7 @@ html, body {
 }
 .block-1:last-child {
   border: none;
+  padding-bottom: 0;
 }
 .block-2 {
   margin: 15px;
@@ -107,6 +108,15 @@ h2 {
 }
 #measureOptions {
   margin-top: 7px;
+}
+#scaleBarOptions, #opacity_lvl, #projection_container {
+  margin-top: 5px;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  padding: 7px;
+}
+#scaleBarOptions {
+  display: none;
 }
 .noselect {
 	-webkit-touch-callout: none;

@@ -114,6 +114,47 @@ const showSegments = document.getElementById('showSegmentLengths');
 const showLengthArea = document.getElementById('showLengthArea');
 const clearPrevious = document.getElementById('clearPrevMeasure');
 
+// Scale controls
+const scaleBarOptionsContainer = document.getElementById('scaleBarOptions');
+const unitsSelect = document.getElementById('scale_units');
+const typeScale = document.getElementById('scale_type');
+const stepsRange = document.getElementById('steps');
+const scaleTextCheckbox = document.getElementById('showScaleText');
+
+let control;
+
+function scaleControl() {
+  if (typeScale.value === 'scaleline') {
+    control = new ScaleLine({
+      units: unitsSelect.value,
+    });
+    scaleBarOptionsContainer.style.display = 'none';
+  } else {
+    control = new ScaleLine({
+      units: unitsSelect.value,
+      bar: true,
+      steps: parseInt(stepsRange.value, 10),
+      text: scaleTextCheckbox.checked,
+      minWidth: 200,
+    });
+    scaleBarOptionsContainer.style.display = 'block';
+  }
+  return control;
+}
+
+function reconfigureScaleLine() {
+  map.removeControl(control);
+  map.addControl(scaleControl());
+}
+function onChangeUnit() {
+  control.setUnits(unitsSelect.value);
+}
+
+unitsSelect.addEventListener('change', onChangeUnit);
+typeScale.addEventListener('change', reconfigureScaleLine);
+stepsRange.addEventListener('input', reconfigureScaleLine);
+scaleTextCheckbox.addEventListener('change', reconfigureScaleLine); 
+
 const style = new Style({
 
   // fill-color': 'rgba(255, 255, 255, 0.2)',
@@ -281,7 +322,8 @@ var map = new Map({
   controls: defaultControls().extend([
     mousePositionControl,
     overviewMapControl,
-    new ScaleLine(),
+    scaleControl(),
+    // new ScaleLine(),
     new FullScreen(),
     new ZoomSlider(),
     new ZoomToExtent({
@@ -705,7 +747,6 @@ $(".exportJson").click(function() {
   var json = new ol.format.GeoJSON().writeFeaturesObject(vector.getSource().getFeatures(), { 
     dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'
   });
-  // console.log(json);
 
   // var features = vector.getSource().getFeatures();
   // console.log(features);
@@ -735,30 +776,3 @@ $(".exportJson").click(function() {
   new JavascriptDataDownloader(json).download();
   
 });
-
-// var data = [[
-//   7356799.446749384,
-//   9193160.203377454
-// ],
-// [
-//   7400958.011798843,
-//   6024783.161078758
-// ],
-// [
-//   14366971.648351029,
-//   6035822.802341122
-// ],
-// [
-//   14311773.442039203,
-//   9193160.203377454
-// ],
-// [
-//   7356799.446749384,
-//   9193160.203377454
-// ]];
-
-// var polygon = new ol.Feature({
-//   geometry: new ol.geom.Polygon([data]),
-// });
-
-// vSource.addFeature(polygon);

@@ -28,7 +28,7 @@
 <body>
     <nav class="navbar bg-dark">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">ol_gis_app_v0.7.2</span>
+            <span class="navbar-brand mb-0 h1">ol_gis_app_v0.7.11</span>
         </div>
     </nav>
 
@@ -142,10 +142,10 @@
                         <div class="col-md">
                             <div class="form-floating">
                                 <select class="form-select" id="page_res">
-                                    <option value="72"> 72 dpi (fast) </option>
-                                    <option value="150"> 150 dpi </option>
-                                    <option value="200" selected> 200 dpi </option>
-                                    <option value="300"> 300 dpi (slow) </option>
+                                    <option value="72"> 72 DPI (Fast) </option>
+                                    <option value="150"> 150 DPI </option>
+                                    <option value="200" selected> 200 DPI </option>
+                                    <option value="300"> 300 DPI (Slow) </option>
                                 </select>
                                 <label for="page_res">Resolution</label>
                             </div>
@@ -166,6 +166,47 @@
                     <div class="input-group" id="opacity_lvl">
                         <input type="range" min="0" max="1" step="0.01" value="1" class="form-range" id="opacity-input">
                         <label for="opacity-input" class="input-group noselect">Layer Opacity:&nbsp<span id="opacity-output"></span></label>
+                    </div>
+                </div>
+
+                <div class="block-1">
+                    <div class="row g-2">
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" id="scale_units">
+                                    <option value="degrees">Degrees</option>
+                                    <option value="imperial">Imperial inch</option>
+                                    <option value="us">US inch</option>
+                                    <option value="nautical">Nautical mile</option>
+                                    <option value="metric" selected>Metric</option>
+                                </select>
+                                <label for="page_size">Units</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" id="scale_type">
+                                    <option value="scaleline">Line</option>
+                                    <option value="scalebar">Bar</option>
+                                </select>
+                                <label for="page_res">Type</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="scaleBarOptions">
+                        <div class="row g-2" id="scale_container">
+                            <div class="col-md-3" id="scale_lvl">
+                                <label for="steps" class="input-group noselect">Steps:</label>
+                            </div>
+                            <div class="col-md">
+                                <input type="range" min="1" max="8" step="1" value="4" class="form-range" id="steps">
+                            </div>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showScaleText" checked>
+                            <label class="form-check-label noselect" for="showScaleText"> Show scale text </label>
+                        </div>
                     </div>
                 </div>
     
