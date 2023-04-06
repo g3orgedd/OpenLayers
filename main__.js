@@ -48,6 +48,7 @@ var selectID = document.getElementById('layers');
 var i = 0;
 $(".save").click(function() {
     // console.log(markerGroup.getLayers());
+    var vectorLayers = [];
     var name = 'vectorLayer' + i;
 
     name = new VectorLayer({
@@ -59,12 +60,14 @@ $(".save").click(function() {
 
     // markerGroup.getLayers().array_.push(name);
     // name.setVisible(true);
-    map.addLayer(name);
+    // map.addLayer(name);
+
+    vectorLayers.push(name);
 
     selectID.options[selectID.length] = new Option('Layer ' + selectID.length, name);
     // map.addLayer(name);
 
-    console.log(i);
+    console.log(name);
     i++;
 });
 
