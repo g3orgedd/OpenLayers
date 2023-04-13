@@ -27,6 +27,10 @@ html, body {
 .item-2 {
   flex-grow: 10;
 }
+.item-3 {
+  flex-grow: 1;
+  max-width: 215px;
+}
 .map {
   top: 0;
   bottom: 0;
@@ -91,6 +95,9 @@ html, body {
 }
 .btn-group {
   width: 100%;
+}
+.vector-layers {
+  margin-bottom: 5px;
 }
 h2 {
   text-align: center;
