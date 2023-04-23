@@ -155,6 +155,8 @@ typeScale.addEventListener('change', reconfigureScaleLine);
 stepsRange.addEventListener('input', reconfigureScaleLine);
 scaleTextCheckbox.addEventListener('change', reconfigureScaleLine); 
 
+// STYLES
+
 const style = new Style({
 
   // fill-color': 'rgba(255, 255, 255, 0.2)',
@@ -519,7 +521,7 @@ map.addLayer(layerGroup);
 // Adds Vector layer
 map.addLayer(vector);
 
-const baseLayerElements = document.querySelectorAll('.btn-group > input[type=radio]')
+const baseLayerElements = document.querySelectorAll('.btn-group-vertical > input[type=radio]')
 for(let baseLayerElement of baseLayerElements) {
   baseLayerElement.addEventListener('change', function() {
     let baseLayerValue = this.value;
