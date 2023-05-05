@@ -178,56 +178,37 @@
         </div>
 
         <div class="item item-3">
-            <div class="menu">
-                <div class="block-1">
-                    <div class="btn-group-vertical">
-                        <input class="btn-check" type="radio" name="BaseLayerMap" value="OSMStandart" id="option1" autocomplete="off" checked>
-                        <label class="btn btn-secondary noselect" for="option1"> OSM </label>
+            <div class="block-1">
+                <div class="btn-group-vertical">
+                    <input class="btn-check" type="radio" name="BaseLayerMap" value="OSMStandart" id="option1" autocomplete="off" checked>
+                    <label class="btn btn-secondary noselect" for="option1"> OSM </label>
 
-                        <input class="btn-check" type="radio" name="BaseLayerMap" value="GoogleTerrainRoads" id="option2" autocomplete="off">
-                        <label class="btn btn-success noselect" for="option2"> Google </label>
+                    <input class="btn-check" type="radio" name="BaseLayerMap" value="GoogleTerrainRoads" id="option2" autocomplete="off">
+                    <label class="btn btn-success noselect" for="option2"> Google </label>
 
-                        <input class="btn-check" type="radio" name="BaseLayerMap" value="BingMapLayer" id="option3" autocomplete="off">
-                        <label class="btn btn-warning noselect" for="option3"> Bing </label>
-                    </div>
+                    <input class="btn-check" type="radio" name="BaseLayerMap" value="BingMapLayer" id="option3" autocomplete="off">
+                    <label class="btn btn-warning noselect" for="option3"> Bing </label>
                 </div>
+            </div>
 
-                <div class="block-1">
-                    <select class="form-select vector-layers" id="vector_layers">
-                        <option value="layer">Выбрать слой</option>
-                        <option value="0">Основной (Слой: 1)</option>
-                    </select>
+            <div class="block-1">
+                <select class="form-select vector-layers" id="vector_layers">
+                    <option value="layer">Выбрать слой</option>
+                    <option value="0">Слой 1</option>
+                </select>
 
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-secondary create" id="create_layer"> Создать слой </button>
-                        <button type="button" class="btn btn-danger delete" id="delete_layer"> Удалить слой </button>
-                    </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary create" id="create_layer"> Создать слой </button>
+                    <button type="button" class="btn btn-danger delete" id="delete_layer"> Удалить слой </button>
                 </div>
+            </div>
 
-                <div class="block-1">
-                    <div class="input-group" id="opacity_lvl">
-                        <!-- <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill bg-danger">New</span> -->
+            <div class="block-1">
+                <div class="input-group" id="opacity_lvl">
+                    <!-- <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill bg-danger">New</span> -->
 
-                        <input type="range" min="0" max="1" step="0.01" value="1" class="form-range" id="opacity-input">
-                        <label for="opacity-input" class="input-group noselect">Layer Opacity:&nbsp<span id="opacity-output"></span></label>
-                    </div>
-                </div>
-
-                <div class="block-1">
-                    <div class="check-form-1" id="vector_layer_list">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Vector1" id="Vector1">
-                            <label class="form-check-label" for="Vector1">Векторный слой 1</label>
-                        </div>
-                    </div>
-                    <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="vector2" id="Check2">
-                        <label class="form-check-label" for="Check2">Vector 2</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="vector3" id="Check3">
-                        <label class="form-check-label" for="Check3">Vector 3</label>
-                    </div> -->
+                    <input type="range" min="0" max="1" step="0.01" value="1" class="form-range" id="opacity-input">
+                    <label for="opacity-input" class="input-group noselect">Layer Opacity:&nbsp<span id="opacity-output"></span></label>
                 </div>
             </div>
         </div>

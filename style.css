@@ -36,6 +36,8 @@ html, body {
   bottom: 0;
   width: 100%;
   height: calc(100vh - 50px);
+  border-left: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
 }
 .map .ol-rotate {
   top: 3.5em;
@@ -116,7 +118,7 @@ h2 {
 #measureOptions {
   margin-top: 7px;
 }
-#scaleBarOptions, #opacity_lvl, #projection_container {
+#scaleBarOptions, #opacity_lvl, #projection_container, #vector_layer_list {
   margin-top: 5px;
   border: 1px solid #ced4da;
   border-radius: .25rem;
@@ -124,6 +126,13 @@ h2 {
 }
 #scaleBarOptions {
   display: none;
+}
+#vector_layer_list {
+  height: 115px;
+  overflow-y: auto;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .noselect {
 	-webkit-touch-callout: none;

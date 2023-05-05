@@ -309,7 +309,13 @@ var map = new Map({
 
 const geomTypeSelect = document.getElementById('geom_type');
 
-// draw, modify and snap function
+// Adds modify interaction
+// const modify = new Modify({
+//   source: vSource,
+// });
+// map.addInteraction(modify);
+
+// draw and snap function
 let draw, snap, modify; // Global to remove it later
 
 function addInteraction(vector) {
@@ -329,15 +335,15 @@ function addInteraction(vector) {
         type: value,
       });
     }
-    var i = 0;
+    let i = 0;
     draw.on('drawend', function(e) {
       var customName = prompt('Введите название объекта');
 
-      if (customName == null) {
+      if(customName == null) {
         customName = value + (i++);
       }
       // e.feature.setId(i);
-      var featureID = e.feature.ol_uid;
+      let featureID = e.feature.ol_uid;
       e.feature.setProperties({
         'id': featureID,
         // 'name': value + featureID,
@@ -375,52 +381,31 @@ function removeInteraction() {
   // map.removeInteraction(modify);
 }
 
-var showSegmentStyle = function (feature) {
-  return styleFunction(feature, showSegments.checked, !(showLengthArea.checked));
-};
-
 var sources = new Array();
 var vectors = new Array();
 
-var s = new VectorSource({wrapX: false});
+var s = new VectorSource();
 var v = new VectorLayer({
-  title: 'Vector1',
-	source: s,
-  style: showSegmentStyle,
-});
+	source: s
+})
 sources.push(s);
 vectors.push(v);
-
-let v_gloval = vectors[0];
 
 // Creates new layer opntion in 'vector_layers' menu
 var selectID = document.getElementById('vector_layers');
 
 $(".create").click(function() {
-  // var vectorLayerName = prompt('Введите название слоя');
-
-  let newSelectOption = new Option(/*vectorLayerName +*/ " (Слой: " + selectID.length + ")", selectID.length - 1);
+  let newSelectOption = new Option('Слой ' + selectID.length, selectID.length - 1);
   selectID.options[selectID.length] = newSelectOption;
-  var titleName = 'Vector' + (selectID.length - 1);
 
-  var s = new VectorSource({wrapX: false});
+  var s = new VectorSource();
   var v = new VectorLayer({
-    title: titleName,
-    source: s,
-    style: showSegmentStyle,
-  });
+    source: s
+  })
   sources.push(s);
   vectors.push(v);
   
-  console.log("Layer " + newSelectOption.value + " was created");
-
-  $('.check-form-1')
-    .append(`
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Vector${(selectID.length-1)}" id="Vector${(selectID.length-1)}">
-            <label class="form-check-label for="Vector${(selectID.length-1)}">Векторный слой ${(selectID.length-1)}</label>
-        </div>
-    `);
+  console.log(newSelectOption.value);
 });
 
 // Adds 'vector_layers' option into array
@@ -432,7 +417,7 @@ $("#vector_layers option").each(function() {
   }
 });
 
-console.log(values);
+// console.log(values);
 
 // document.getElementById('vector_layers').addEventListener('change', function() {
 //   for (let index = 0; index < values.length-1; index++) {
@@ -457,9 +442,7 @@ document.getElementById('vector_layers').addEventListener('change', function() {
       }
       addInteraction(sources[this.value]);
       map.addLayer(vectors[this.value]);
-
-      v_gloval = vectors[this.value];
-    } 
+    }
   // console.log('You selected: ', this.value);
   }
 });
@@ -471,15 +454,14 @@ $(document).ready(function() {
   });
 });
 
-// Show segments length function
+// 
 showSegments.onchange = function () {
-  v_gloval.changed();
+  vector.changed();
   draw.getOverlay().changed();
 };
 
-// Show area function
 showLengthArea.onchange = function () {
-  v_gloval.changed();
+  vector.changed();
   draw.getOverlay.changed();
 }
 
@@ -506,7 +488,7 @@ document.getElementById('undo').addEventListener('click', function () {
 // Delete function
 document.getElementById('delete').addEventListener('click', function () {
   map.removeInteraction(draw);
-  addInteraction(v_gloval);
+  addInteraction();
 });
 
 // OSM layer
@@ -759,7 +741,7 @@ exportButton.addEventListener('click', function () {
 // Export geoJson function 
 
 $(".exportJson").click(function() {
-  var json = new ol.format.GeoJSON().writeFeaturesObject(v_gloval.getSource().getFeatures(), { 
+  var json = new ol.format.GeoJSON().writeFeaturesObject(vector.getSource().getFeatures(), { 
     dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'
   });
 
