@@ -34,7 +34,7 @@
             <div class="menu">
                 <div class="block-1">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary" id="myLocation">Location</button>
+                        <button type="button" class="btn btn-primary" id="myLocation">Моё местоположение</button>
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
                     <div id="measureOptions">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="showLengthArea" value="option1">
-                            <label class="form-check-label noselect" for="showLengthArea"> Show Length/Area </label>
+                            <label class="form-check-label noselect" for="showLengthArea"> Показать Длину/Площадь </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="showSegmentLengths" value="option1">
@@ -96,36 +96,36 @@
                         <div class="col-md">
                             <div class="form-floating">
                                 <select class="form-select" id="page_size">
-                                    <option value="a0">A0 (slow)</option>
+                                    <option value="a0">A0 (Медленно)</option>
                                     <option value="a1">A1</option>
                                     <option value="a2">A2</option>
                                     <option value="a3">A3</option>
                                     <option value="a4" selected>A4</option>
-                                    <option value="a5">A5 (fast)</option>
+                                    <option value="a5">A5 (Быстро)</option>
                                 </select>
-                                <label for="page_size">Size</label>
+                                <label for="page_size">Размер</label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
                                 <select class="form-select" id="page_res">
-                                    <option value="72"> 72 DPI (Fast) </option>
-                                    <option value="150"> 150 DPI </option>
-                                    <option value="200" selected> 200 DPI </option>
-                                    <option value="300"> 300 DPI (Slow) </option>
+                                    <option value="72">72 DPI (Быстро)</option>
+                                    <option value="150">150 DPI</option>
+                                    <option value="200" selected>200 DPI</option>
+                                    <option value="300">300 DPI (Медленно)</option>
                                 </select>
-                                <label for="page_res"> Resolution </label>
+                                <label for="page_res">Разрешение</label>
                             </div>
                         </div>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-dark" id="save_pdf"> Save PDF </button>
+                        <button type="button" class="btn btn-dark" id="save_pdf">Сохранить PDF</button>
                     </div>
                 </div>
 
                 <div class="block-1">
                     <div class="btn-group">
-                        <button type="button" class="exportJson btn btn-success" id="saveJson"> Export geoJSON </button>
+                        <button type="button" class="exportJson btn btn-success" id="saveJson">Экспорт в geoJSON</button>
                     </div>
                 </div>
 
@@ -134,29 +134,29 @@
                         <div class="col-md">
                             <div class="form-floating">
                                 <select class="form-select" id="scale_units">
-                                    <option value="degrees">Degrees</option>
-                                    <option value="imperial">Imperial inch</option>
-                                    <option value="us">US inch</option>
-                                    <option value="nautical">Nautical mile</option>
-                                    <option value="metric" selected>Metric</option>
+                                    <option value="degrees">Градусы</option>
+                                    <option value="imperial">Дюймы</option>
+                                    <option value="us">US дюймы</option>
+                                    <option value="nautical">Морские мили</option>
+                                    <option value="metric" selected>Метрические</option>
                                 </select>
-                                <label for="page_size">Units</label>
+                                <label for="page_size">Единицы</label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
                                 <select class="form-select" id="scale_type">
-                                    <option value="scaleline">Line</option>
-                                    <option value="scalebar">Bar</option>
+                                    <option value="scaleline">Линия</option>
+                                    <option value="scalebar">Линейка</option>
                                 </select>
-                                <label for="page_res">Type</label>
+                                <label for="page_res">Тип</label>
                             </div>
                         </div>
                     </div>
                     <div id="scaleBarOptions">
                         <div class="row g-2" id="scale_container">
-                            <div class="col-md-3" id="scale_lvl">
-                                <label for="steps" class="input-group noselect">Steps:</label>
+                            <div class="col-md" id="scale_lvl">
+                                <label for="steps" class="input-group noselect">Шаги:</label>
                             </div>
                             <div class="col-md">
                                 <input type="range" min="1" max="8" step="1" value="4" class="form-range" id="steps">
@@ -165,7 +165,7 @@
                         
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="showScaleText" checked>
-                            <label class="form-check-label noselect" for="showScaleText"> Show scale text </label>
+                            <label class="form-check-label noselect" for="showScaleText">Показать масштаб</label>
                         </div>
                     </div>
                 </div>
@@ -182,25 +182,13 @@
                 <div class="block-1">
                     <div class="btn-group-vertical">
                         <input class="btn-check" type="radio" name="BaseLayerMap" value="OSMStandart" id="option1" autocomplete="off" checked>
-                        <label class="btn btn-secondary noselect" for="option1"> OSM </label>
+                        <label class="btn btn-secondary noselect" for="option1">OSM</label>
 
                         <input class="btn-check" type="radio" name="BaseLayerMap" value="GoogleTerrainRoads" id="option2" autocomplete="off">
-                        <label class="btn btn-success noselect" for="option2"> Google </label>
+                        <label class="btn btn-success noselect" for="option2">Google</label>
 
                         <input class="btn-check" type="radio" name="BaseLayerMap" value="BingMapLayer" id="option3" autocomplete="off">
-                        <label class="btn btn-warning noselect" for="option3"> Bing </label>
-                    </div>
-                </div>
-
-                <div class="block-1">
-                    <select class="form-select vector-layers" id="vector_layers">
-                        <option value="layer">Выбрать слой</option>
-                        <option value="0">Основной (Слой: 1)</option>
-                    </select>
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-secondary create" id="create_layer"> Создать слой </button>
-                        <button type="button" class="btn btn-danger delete" id="delete_layer"> Удалить слой </button>
+                        <label class="btn btn-warning noselect" for="option3">Bing</label>
                     </div>
                 </div>
 
@@ -209,7 +197,19 @@
                         <!-- <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill bg-danger">New</span> -->
 
                         <input type="range" min="0" max="1" step="0.01" value="1" class="form-range" id="opacity-input">
-                        <label for="opacity-input" class="input-group noselect">Layer Opacity:&nbsp<span id="opacity-output"></span></label>
+                        <label for="opacity-input" class="input-group noselect">Непрозрачность слоя:&nbsp<span id="opacity-output"></span></label>
+                    </div>
+                </div>
+                
+                <div class="block-1">
+                    <select class="form-select vector-layers" id="vector_layers">
+                        <option value="layer">Выбрать слой</option>
+                        <option value="0">Основной (Слой: 1)</option>
+                    </select>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary create" id="create_layer">Создать слой</button>
+                        <button type="button" class="btn btn-danger delete" id="delete_layer">Удалить слой</button>
                     </div>
                 </div>
 

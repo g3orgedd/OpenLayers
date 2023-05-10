@@ -22,7 +22,7 @@ html, body {
 }
 .item-1 {
   flex-grow: 1;
-  max-width: 215px;
+  max-width: 220px;
 }
 .item-2 {
   flex-grow: 10;
@@ -134,6 +134,9 @@ h2 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+#scale_lvl {
+  max-width: 55px;
+}
 .noselect {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -143,5 +146,5 @@ h2 {
 	user-select: none;
 }
 .navbar {
-  color: white;
+  color: #ffffff;
 }

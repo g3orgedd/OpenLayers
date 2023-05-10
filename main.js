@@ -423,6 +423,14 @@ $(".create").click(function() {
     `);
 });
 
+document.querySelector('.check-form-1').addEventListener('change', (event) => {
+  map.getLayers().forEach(function(e) {
+      if (event.target.value == e.get('title')) {
+          e.setVisible(event.target.checked);
+      }
+  });
+});
+
 // Adds 'vector_layers' option into array
 var values = new Array();
 
@@ -447,7 +455,7 @@ console.log(values);
 
 // Changes a vector layers
 document.getElementById('vector_layers').addEventListener('change', function() {
-  for (let index = 0; index < values.length-1; index++) {
+  // for (let index = 0; index < values.length-1; index++) {
     if (this.value !== 'layer') {
       for (let index = 0; index < sources.length; index++) {
         if (index != this.value) {
@@ -455,13 +463,23 @@ document.getElementById('vector_layers').addEventListener('change', function() {
           removeInteraction(sources[index]);
         }
       }
+      vectors[this.value].setVisible(true);
+
       addInteraction(sources[this.value]);
       map.addLayer(vectors[this.value]);
 
       v_gloval = vectors[this.value];
     } 
+    else if (this.value === 'layer') {
+      for (let index = 0; index < sources.length; index++) {
+        vectors[index].setVisible(false);
+
+        map.addLayer(vectors[index]);
+        removeInteraction(sources[index]);
+      }
+    }
   // console.log('You selected: ', this.value);
-  }
+  // }
 });
 
 // Delete layers function
