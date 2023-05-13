@@ -344,7 +344,7 @@ function addInteraction(vector) {
         'name': customName,
         'description': value,
       })
-      console.log(e.feature, e.feature.getProperties());
+      // console.log(e.feature, e.feature.getProperties());
     });
     map.addInteraction(draw);
     
@@ -382,110 +382,116 @@ var showSegmentStyle = function (feature) {
 var sources = new Array();
 var vectors = new Array();
 
-var s = new VectorSource({wrapX: false});
-var v = new VectorLayer({
+let sFirst = new VectorSource({wrapX: false});
+let vFirst = new VectorLayer({
   title: 'Vector1',
-	source: s,
+	source: sFirst,
   style: showSegmentStyle,
 });
-sources.push(s);
-vectors.push(v);
 
-let v_gloval = vectors[0];
+sources.push(sFirst);
+vectors.push(vFirst);
+
+var v_gloval = vectors[0];
 
 // Creates new layer opntion in 'vector_layers' menu
 var selectID = document.getElementById('vector_layers');
 
+var vectorLayersCount = ['layer', 0];
+
 $(".create").click(function() {
-  // var vectorLayerName = prompt('Введите название слоя');
+  var vectorLayerName = prompt('Введите название слоя');
 
-  let newSelectOption = new Option(/*vectorLayerName +*/ " (Слой: " + selectID.length + ")", selectID.length - 1);
+  let newSelectOption = new Option(vectorLayerName + " (Слой: " + vectorLayersCount.length + ")", vectorLayersCount.length - 1);
   selectID.options[selectID.length] = newSelectOption;
-  var titleName = 'Vector' + (selectID.length - 1);
+  let titleName = 'Vector' + (vectorLayersCount.length - 1);
 
-  var s = new VectorSource({wrapX: false});
-  var v = new VectorLayer({
+  let s = new VectorSource({wrapX: false});
+  let v = new VectorLayer({
     title: titleName,
     source: s,
     style: showSegmentStyle,
   });
+
   sources.push(s);
   vectors.push(v);
-  
-  console.log("Layer " + newSelectOption.value + " was created");
+  // console.log("Layer " + newSelectOption.value + " was created");
 
   $('.check-form-1')
     .append(`
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Vector${(selectID.length-1)}" id="Vector${(selectID.length-1)}">
-            <label class="form-check-label for="Vector${(selectID.length-1)}">Векторный слой ${(selectID.length-1)}</label>
-        </div>
+      <div class="form-check" id="vector_chbox${(vectorLayersCount.length - 1)}">
+        <input class="form-check-input" type="checkbox" value="Vector${(vectorLayersCount.length)}" id="Vector${(vectorLayersCount.length)}">
+        <label class="form-check-label for="Vector${(vectorLayersCount.length)}">${vectorLayerName} (${(vectorLayersCount.length)})</label>
+      </div>
     `);
+
+  vectorLayersCount.push(1);
 });
 
 document.querySelector('.check-form-1').addEventListener('change', (event) => {
   map.getLayers().forEach(function(e) {
-      if (event.target.value == e.get('title')) {
-          e.setVisible(event.target.checked);
-      }
+    if (event.target.value == e.get('title')) {
+      e.setVisible(event.target.checked);
+    }
   });
 });
 
 // Adds 'vector_layers' option into array
-var values = new Array();
+// var values = new Array();
 
-$("#vector_layers option").each(function() {
-  if($(this).val() !== '') {
-    values.push($(this).val())
-  }
-});
-
-console.log(values);
-
-// document.getElementById('vector_layers').addEventListener('change', function() {
-//   for (let index = 0; index < values.length-1; index++) {
-//     var s = new VectorSource();
-//     var v = new VectorLayer({
-//       source: s
-//     })
-//     sources.push(s);
-//     vectors.push(v);
+// $("#vector_layers option").each(function() {
+//   if($(this).val() !== '') {
+//     values.push($(this).val())
 //   }
 // });
 
+var selectedLayer = 0;
+
 // Changes a vector layers
 document.getElementById('vector_layers').addEventListener('change', function() {
-  // for (let index = 0; index < values.length-1; index++) {
-    if (this.value !== 'layer') {
-      for (let index = 0; index < sources.length; index++) {
-        if (index != this.value) {
-          map.removeLayer(vectors[index]);
-          removeInteraction(sources[index]);
-        }
-      }
-      vectors[this.value].setVisible(true);
-
-      addInteraction(sources[this.value]);
-      map.addLayer(vectors[this.value]);
-
-      v_gloval = vectors[this.value];
-    } 
-    else if (this.value === 'layer') {
-      for (let index = 0; index < sources.length; index++) {
-        vectors[index].setVisible(false);
-
-        map.addLayer(vectors[index]);
+  if (this.value != 'layer') {
+    for (let index = 0; index < vectors.length; index++) {
+      if (index != this.value) {
+        map.removeLayer(vectors[index]);
         removeInteraction(sources[index]);
       }
     }
-  // console.log('You selected: ', this.value);
-  // }
+    vectors[this.value].setVisible(true);
+
+    addInteraction(sources[this.value]);
+    map.addLayer(vectors[this.value]);
+
+    v_gloval = vectors[this.value];
+    selectedLayer = this.value;
+  } 
+
+  if (this.value == 'layer') {
+    for (let index = 0; index < vectors.length; index++) {
+      map.removeLayer(vectors[index]);
+
+      vectors[index].setVisible(false);
+
+      map.addLayer(vectors[index]);
+      removeInteraction(sources[index]);
+    }
+  }
 });
 
 // Delete layers function
 $(document).ready(function() {
   $('#delete_layer').click(function() {
-    $('#vector_layers option:selected').remove();
+    let selectedOption = $('#vector_layers option:selected');
+    
+    if (selectedOption.val() != 'layer') {
+      $(`#vector_chbox${(selectedLayer)}`).remove();
+      selectedOption.remove();
+    }
+
+    map.removeLayer(vectors[selectedLayer]);
+    map.removeInteraction(sources[selectedLayer]);
+
+    // vectors = vectors.filter(el => el != vectors[selectedLayer]);
+    // sources = sources.filter(el => el != sources[selectedLayer]);
   });
 });
 
