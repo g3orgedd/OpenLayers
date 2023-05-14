@@ -384,7 +384,7 @@ var vectors = new Array();
 
 let sFirst = new VectorSource({wrapX: false});
 let vFirst = new VectorLayer({
-  title: 'Vector1',
+  title: 'Vector0',
 	source: sFirst,
   style: showSegmentStyle,
 });
@@ -400,9 +400,9 @@ var selectID = document.getElementById('vector_layers');
 var vectorLayersCount = ['layer', 0];
 
 $(".create").click(function() {
-  var vectorLayerName = prompt('Введите название слоя');
+  // var vectorLayerName = prompt('Введите название слоя');
 
-  let newSelectOption = new Option(vectorLayerName + " (Слой: " + vectorLayersCount.length + ")", vectorLayersCount.length - 1);
+  let newSelectOption = new Option(/*vectorLayerName + */" (Слой: " + vectorLayersCount.length + ")", vectorLayersCount.length - 1);
   selectID.options[selectID.length] = newSelectOption;
   let titleName = 'Vector' + (vectorLayersCount.length - 1);
 
@@ -420,12 +420,13 @@ $(".create").click(function() {
   $('.check-form-1')
     .append(`
       <div class="form-check" id="vector_chbox${(vectorLayersCount.length - 1)}">
-        <input class="form-check-input" type="checkbox" value="Vector${(vectorLayersCount.length)}" id="Vector${(vectorLayersCount.length)}">
-        <label class="form-check-label for="Vector${(vectorLayersCount.length)}">${vectorLayerName} (${(vectorLayersCount.length)})</label>
+        <input class="form-check-input" type="checkbox" value="Vector${(vectorLayersCount.length - 1)}" id="Vector${(vectorLayersCount.length - 1)}">
+        <label class="form-check-label for="Vector${(vectorLayersCount.length - 1)}"> (${(vectorLayersCount.length)})</label>
       </div>
     `);
 
   vectorLayersCount.push(1);
+  console.log(vectorLayersCount);
 });
 
 document.querySelector('.check-form-1').addEventListener('change', (event) => {
