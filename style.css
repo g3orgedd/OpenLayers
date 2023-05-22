@@ -72,7 +72,8 @@ html, body {
 .block-1 {
   margin: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #858585;
+  /* border-bottom: 1px solid #858585; */
+  border-bottom: 1px solid #c3c3c3;
 }
 .block-1:last-child {
   border: none;

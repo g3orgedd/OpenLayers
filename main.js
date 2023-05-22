@@ -419,11 +419,13 @@ $(".create").click(function() {
 
   $('.check-form-1')
     .append(`
-      <div class="form-check" id="vector_chbox${(vectorLayersCount.length - 1)}">
+      <div class="form-check-1" id="vector_chbox${(vectorLayersCount.length - 1)}">
         <input class="form-check-input" type="checkbox" value="Vector${(vectorLayersCount.length - 1)}" id="Vector${(vectorLayersCount.length - 1)}">
         <label class="form-check-label for="Vector${(vectorLayersCount.length - 1)}"> (${(vectorLayersCount.length)})</label>
       </div>
     `);
+
+// <input type="range" min="0" max="1" step="0.01" value="1" class="form-range" id="opacity-input${(vectorLayersCount.length - 1)}">
 
   vectorLayersCount.push(1);
   console.log(vectorLayersCount);
@@ -659,7 +661,7 @@ const opacityInput = document.getElementById('opacity-input');
 const opacityOutput = document.getElementById('opacity-output');
 
 function opacityUpdate() {
-  const opacity = parseFloat(opacityInput.value);
+  let opacity = parseFloat(opacityInput.value);
   layerGroup.setOpacity(opacity);
   opacityOutput.innerText = opacity.toFixed(2);
 }
