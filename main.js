@@ -39,6 +39,8 @@ import {
 
 import { LineString, Point } from 'ol/geom';
 
+import { click } from 'ol/events/condition';
+
 import { 
   getPointResolution,
   fromLonLat, 
@@ -338,6 +340,9 @@ function addInteraction(vector) {
       }
       // e.feature.setId(i);
       var featureID = e.feature.ol_uid;
+
+      e.feature.setId(e.feature.ol_uid); // not working for now
+      
       e.feature.setProperties({
         'id': featureID,
         // 'name': value + featureID,
@@ -400,9 +405,9 @@ var selectID = document.getElementById('vector_layers');
 var vectorLayersCount = ['layer', 0];
 
 $(".create").click(function() {
-  // var vectorLayerName = prompt('Введите название слоя');
+  var vectorLayerName = prompt('Введите название слоя');
 
-  let newSelectOption = new Option(/*vectorLayerName + */" (Слой: " + vectorLayersCount.length + ")", vectorLayersCount.length - 1);
+  let newSelectOption = new Option(vectorLayerName + " (Слой: " + vectorLayersCount.length + ")", vectorLayersCount.length - 1);
   selectID.options[selectID.length] = newSelectOption;
   let titleName = 'Vector' + (vectorLayersCount.length - 1);
 
@@ -421,7 +426,7 @@ $(".create").click(function() {
     .append(`
       <div class="form-check-1" id="vector_chbox${(vectorLayersCount.length - 1)}">
         <input class="form-check-input" type="checkbox" value="Vector${(vectorLayersCount.length - 1)}" id="Vector${(vectorLayersCount.length - 1)}">
-        <label class="form-check-label for="Vector${(vectorLayersCount.length - 1)}"> (${(vectorLayersCount.length)})</label>
+        <label class="form-check-label noselect" for="Vector${(vectorLayersCount.length - 1)}"> ${vectorLayerName} (${(vectorLayersCount.length)})</label>
       </div>
     `);
 
@@ -480,19 +485,80 @@ document.getElementById('vector_layers').addEventListener('change', function() {
   }
 });
 
+/*
+// Delete feature function (Not working)
+var selectInteraction = new Select({
+  condition: click,
+});
+
+var deleteFeature = function(evt) {
+  if(evt.keyCode == 46) {
+    var selectCollection = selectInteraction.getFeatures();
+    console.log(selectCollection.getLength());
+    // console.log(selectCollection.item(0));
+    if (selectCollection.getLength() > 0) {
+      console.log(selectCollection);
+      vectors[selectedLayer].getSource().removeFeature(selectCollection.item(0));
+    }
+  };
+};
+document.addEventListener('keydown', deleteFeature, false);
+*/
+
+const featureName = document.getElementById('featureName');
+const featureID = document.getElementById('featureID');
+
+let selectedFeature; // selected feature on the map
+map.on('singleclick', function(e) {
+  map.forEachFeatureAtPixel(e.pixel, function(feature) {
+    // let coords = e.coordinate;
+    // let name = feature.get('name');
+    // let cId = feature.get('id');
+    // let desc = feature.get('description');
+    // let id = feature.getId();
+    let fID = feature.get('id')
+    
+    featureName.innerHTML = `Имя: ${feature.get('name')}`;
+    featureID.innerHTML = `ID: ${fID}`;
+
+    selectedFeature = vectors[selectedLayer].getSource().getFeatureById(fID);
+  });
+})
+
+document.getElementById('deleteFeature').addEventListener('click', function () {
+  sources[selectedLayer].removeFeature(selectedFeature);
+  featureName.innerHTML = 'Имя:';
+  featureID.innerHTML = 'ID:';
+});
+
+/* Deprecated function
+
+// map.on('click', function(evt) {
+//   var pixel = map.getPixelFromCoordinate(evt.coordinate);
+//   map.forEachFeatureAtPixel(pixel, function(feature) {
+//       console.log(feature.getId()); // id of selected feature
+//       // vectors[selectedLayer].getSource().removeFeature(feature);
+//       // vectors[selectedLayer].getSource().removeFeature(feature.getId());
+//   });
+// });
+
+*/
+
 // Delete layers function
 $(document).ready(function() {
   $('#delete_layer').click(function() {
-    let selectedOption = $('#vector_layers option:selected');
+    if (confirm('Удалить слой?')) {
+      let selectedOption = $('#vector_layers option:selected');
     
-    if (selectedOption.val() != 'layer') {
-      $(`#vector_chbox${(selectedLayer)}`).remove();
-      selectedOption.remove();
+      if (selectedOption.val() != 'layer') {
+        $(`#vector_chbox${(selectedLayer)}`).remove();
+        selectedOption.remove();
+      }
+
+      map.removeLayer(vectors[selectedLayer]);
+      map.removeInteraction(sources[selectedLayer]);
     }
-
-    map.removeLayer(vectors[selectedLayer]);
-    map.removeInteraction(sources[selectedLayer]);
-
+    
     // vectors = vectors.filter(el => el != vectors[selectedLayer]);
     // sources = sources.filter(el => el != sources[selectedLayer]);
   });
@@ -608,6 +674,14 @@ document.getElementById('myLocation').addEventListener('click', function() {
     })
   );
   console.log(geolocation.getPosition());
+});
+
+// Clear selected layer function
+document.getElementById('clearSource').addEventListener('click', function() {
+  if (confirm('Очистить слой?')) {
+    sources[selectedLayer].clear();
+    console.log(`Source${selectedLayer} was cleared.`);
+  }
 });
 
 // Graticule function
@@ -784,7 +858,6 @@ exportButton.addEventListener('click', function () {
 );
 
 // Export geoJson function 
-
 $(".exportJson").click(function() {
   var json = new ol.format.GeoJSON().writeFeaturesObject(v_gloval.getSource().getFeatures(), { 
     dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'
@@ -793,21 +866,21 @@ $(".exportJson").click(function() {
   class JavascriptDataDownloader {
 
     constructor(data = {json}) {
-        this.data = data;
+      this.data = data;
     }
 
     download (type_of = "text/plain", filename= "data.geojson") {
-        let body = document.body;
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([JSON.stringify(this.data, null, 2)], {
-            type: type_of
-        }));
+      let body = document.body;
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(this.data, null, 2)], {
+        type: type_of
+      }));
 
-        a.setAttribute("download", filename);
-        body.appendChild(a);
-
-        a.click();
-        body.removeChild(a);
+      a.setAttribute("download", filename);
+      body.appendChild(a);
+    
+      a.click();
+      body.removeChild(a);
     }
   } 
   

@@ -119,11 +119,17 @@ h2 {
 #measureOptions {
   margin-top: 7px;
 }
-#scaleBarOptions, #opacity_lvl, #projection_container, #vector_layer_list {
+#scaleBarOptions, #opacity_lvl, #projection_container, #vector_layer_list, #feature_props {
   margin-top: 5px;
   border: 1px solid #ced4da;
   border-radius: .25rem;
   padding: 7px;
+}
+#feature_props, #xyCoords {
+  display: grid;
+}
+#feature_props {
+  margin-bottom: 5px;
 }
 #scaleBarOptions {
   display: none;

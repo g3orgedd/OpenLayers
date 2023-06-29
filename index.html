@@ -217,7 +217,7 @@
                     <div class="check-form-1" id="vector_layer_list">
                         <div class="form-check" id="vector_chbox0">
                             <input class="form-check-input" type="checkbox" value="Vector0" id="Vector0">
-                            <label class="form-check-label" for="Vector0">Векторный слой 1</label>
+                            <label class="form-check-label noselect" for="Vector0">Векторный слой 1</label>
                         </div>
                     </div>
                     <!-- <div class="form-check">
@@ -228,6 +228,29 @@
                         <input class="form-check-input" type="checkbox" value="vector3" id="Check3">
                         <label class="form-check-label" for="Check3">Vector 3</label>
                     </div> -->
+                </div>
+
+                <div class="block-1">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="clearSource">Очистить слой</button>
+                    </div>
+                </div>
+
+                <div class="block-1">
+                    <div id="feature_props">
+                        <span id="featureName">Имя: </span>
+                        <span id="featureID">ID: </span>
+                        <!-- <span id="featureCoords">Координаты (x, y):
+                            <div id="xyCoords">
+                                <span id="xC"></span>
+                                <span id="yC"></span>
+                            </div>
+                        </span> -->
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger" id="deleteFeature">Удалить фигуру</button>
+                    </div>
                 </div>
             </div>
         </div>
