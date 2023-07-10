@@ -348,7 +348,7 @@ function addInteraction(vector) {
         // 'name': value + featureID,
         'name': customName,
         'description': value,
-      })
+      });
       // console.log(e.feature, e.feature.getProperties());
     });
     map.addInteraction(draw);
@@ -485,26 +485,6 @@ document.getElementById('vector_layers').addEventListener('change', function() {
   }
 });
 
-/*
-// Delete feature function (Not working)
-var selectInteraction = new Select({
-  condition: click,
-});
-
-var deleteFeature = function(evt) {
-  if(evt.keyCode == 46) {
-    var selectCollection = selectInteraction.getFeatures();
-    console.log(selectCollection.getLength());
-    // console.log(selectCollection.item(0));
-    if (selectCollection.getLength() > 0) {
-      console.log(selectCollection);
-      vectors[selectedLayer].getSource().removeFeature(selectCollection.item(0));
-    }
-  };
-};
-document.addEventListener('keydown', deleteFeature, false);
-*/
-
 const featureName = document.getElementById('featureName');
 const featureID = document.getElementById('featureID');
 
@@ -529,6 +509,15 @@ document.getElementById('deleteFeature').addEventListener('click', function () {
   sources[selectedLayer].removeFeature(selectedFeature);
   featureName.innerHTML = 'Имя:';
   featureID.innerHTML = 'ID:';
+});
+
+document.getElementById('renameFeature').addEventListener('click', function() {
+  var name = prompt('Введите название объекта');
+    if (name == null) {
+      name = value + (i++);
+    }
+
+    selectedFeature.set('name', name);
 });
 
 /* Deprecated function
@@ -806,6 +795,7 @@ exportButton.addEventListener('click', function () {
       mapCanvas.width = width;
       mapCanvas.height = height;
       const mapContext = mapCanvas.getContext('2d');
+
       Array.prototype.forEach.call(
         document.querySelectorAll('.ol-layer canvas'),
         function (canvas) {
@@ -831,6 +821,7 @@ exportButton.addEventListener('click', function () {
       mapContext.globalAlpha = 1;
       mapContext.setTransform(1, 0, 0, 1, 0, 0);
       const pdf = new jspdf.jsPDF('landscape', undefined, format);
+        
       pdf.addImage(
         mapCanvas.toDataURL('image/jpeg'),
         'JPEG',
