@@ -16,3 +16,5 @@ To generate a build ready for production:
     npm run build
 
 Then deploy the contents of the `dist` directory to your server.  You can also run `npm run serve` to serve the results of the `dist` directory for preview.
+
+# Demo-version available at [g3orgedd.xyz](http://www.g3orgedd.xyz/).
